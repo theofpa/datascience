@@ -1,0 +1,20 @@
+NOAA Storm Database analysis
+========================================================
+
+Download and review the data:
+
+```{r}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(fileUrl, destfile = "stormdata.csv.bz2", method = "curl")
+stormdata <- read.csv("./stormdata.csv.bz2")
+head(stormdata)
+summary(stormdata)
+```
+
+Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
+
+```{r fig.width=7, fig.height=6}
+library(ggplot2)
+q<-barplot(head(sort(tapply(stormdata$FATALITIES + stormdata$INJURIES, stormdata$EVTYPE, sum),dec=T),10),col='red',las=2)
+```
+
