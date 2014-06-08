@@ -1,0 +1,16 @@
+Report
+======
+
+Is an automatic or manual transmission better for MPG
+
+```{r}
+aggregate(mpg ~ am, data=mtcars, mean)
+```
+
+Quantifying how different is the MPG between automatic and manual transmissions?
+
+```{r}
+
+```
+
+
