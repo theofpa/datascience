@@ -127,3 +127,33 @@ bs(training$age,df=3)
 
 # Deep learning
 # create features for image/voice that you cannot imagine
+
+# Example prediction
+data(iris); library(ggplot2)
+names(iris)
+table(iris$Species)
+
+# Seperate the data
+library(caret)
+inTrain<-createDataPartition(y=iris$Species, p=0.7, list=FALSE)
+training<-iris[inTrain,]
+testing<-iris[-inTrain,]
+dim(training);dim(testing)
+
+# Plot the data
+qplot(Petal.Width,Sepal.Width,colour=Species,data=training)
+
+# Looks like a classification problem, let's train a model as such
+modFit<-train(Species ~ ., method="rpart", data=training)
+print(modFit$finalModel)
+
+# Print the classification tree (dendrogram)
+plot(modFit$finalModel, uniform=TRUE, main="Classification tree")
+text(modFit$finalModel, use.n=TRUE, all=TRUE, cex=.8)
+
+# Alternative plot
+library(rattle)
+fancyRpartPlot(modFit$finalModel)
+
+# Predict new values
+predict(modFit, newdata=testing)
