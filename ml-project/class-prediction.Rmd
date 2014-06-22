@@ -1,0 +1,38 @@
+---
+title: "class-prediction"
+output: html_document
+---
+<!---
+Requirements
+ Rmd/html/gh-pages/< 2000 words/<5 figures
+
+Goal:
+ predict the manner in which they did the exercise
+
+Sections:
+ how you built your model
+ how you used cross validation
+ describe what they expect the out of sample error to be and estimate the error appropriately with cross-validation
+ why you made the choices you did
+ use your prediction model to predict 20 different test cases
+---!>
+
+Get and clean the data
+======================
+```{r}
+library(caret)
+traincsv<-"https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+download.file(traincsv, destfile = "pml-training.csv", method = "curl")
+trainingraw <- read.table("./pml-training.csv",sep=",",header=TRUE)
+testcsv<"https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+download.file(testcsv, destfile = "pml-testing.csv", method = "curl")
+testing <- read.table("./pml-testing.csv",sep=",",header=TRUE)
+
+inTrain <- createDataPartition(trainingraw$classe, p=0.70, list=FALSE)
+training <- trainingraw[inTrain,]
+validation <- trainingraw[-inTrain,]
+```
+
+
+
+
