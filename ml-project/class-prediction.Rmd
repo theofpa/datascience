@@ -74,7 +74,7 @@ fit$results
 
 ### Error estimation with cross validation
 
-Using the model that we've trained, we're performing a cross validation with the rest of data from the dataset reserved for this reason. The out of error rate is expected to be low as accuracy of the model observed above is 99.88%.
+Using the model that we've trained, we're performing a cross validation with the rest of data from the dataset reserved for this reason. The out of error rate is expected to be less than 1%, as the accuracy of the model observed above is 99.88%.
 ```{r}
 traincontrol <- trainControl(method = "cv", number = 5)
 ```
@@ -87,6 +87,10 @@ load(file="./fit_crossvalidation.RData")
 fit_crossvalidation$resample
 fit_crossvalidation$results
 confusionMatrix(predict(fit_crossvalidation, newdata=validation), validation$classe)
+```
+Indeed, by calculating the out of sample error (the cross-validation estimate is an out-of-sample estimate) we get the value of `0.54%`:
+```{r}
+fit_crossvalidation$finalModel
 ```
 
 ### Predict the 20 test cases
