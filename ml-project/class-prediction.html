@@ -148,33 +148,33 @@ fit_crossvalidation$resample</code></pre>
 ## 
 ##           Reference
 ## Prediction    A    B    C    D    E
-##          A 1672    1    0    0    0
-##          B    2 1133    3    0    0
-##          C    0    5 1023    4    0
-##          D    0    0    0  957    8
-##          E    0    0    0    3 1074
+##          A 1671    4    0    0    0
+##          B    3 1128    4    0    0
+##          C    0    7 1019    7    0
+##          D    0    0    3  956    7
+##          E    0    0    0    1 1075
 ## 
 ## Overall Statistics
 ##                                         
-##                Accuracy : 0.996         
-##                  95% CI : (0.994, 0.997)
+##                Accuracy : 0.994         
+##                  95% CI : (0.992, 0.996)
 ##     No Information Rate : 0.284         
 ##     P-Value [Acc &gt; NIR] : &lt;2e-16        
 ##                                         
-##                   Kappa : 0.994         
+##                   Kappa : 0.992         
 ##  Mcnemar's Test P-Value : NA            
 ## 
 ## Statistics by Class:
 ## 
 ##                      Class: A Class: B Class: C Class: D Class: E
-## Sensitivity             0.999    0.995    0.997    0.993    0.993
-## Specificity             1.000    0.999    0.998    0.998    0.999
-## Pos Pred Value          0.999    0.996    0.991    0.992    0.997
-## Neg Pred Value          1.000    0.999    0.999    0.999    0.998
+## Sensitivity             0.998    0.990    0.993    0.992    0.994
+## Specificity             0.999    0.999    0.997    0.998    1.000
+## Pos Pred Value          0.998    0.994    0.986    0.990    0.999
+## Neg Pred Value          0.999    0.998    0.999    0.998    0.999
 ## Prevalence              0.284    0.194    0.174    0.164    0.184
-## Detection Rate          0.284    0.193    0.174    0.163    0.182
-## Detection Prevalence    0.284    0.193    0.175    0.164    0.183
-## Balanced Accuracy       0.999    0.997    0.998    0.996    0.996</code></pre>
+## Detection Rate          0.284    0.192    0.173    0.162    0.183
+## Detection Prevalence    0.285    0.193    0.176    0.164    0.183
+## Balanced Accuracy       0.999    0.994    0.995    0.995    0.997</code></pre>
 <p>Indeed, by calculating the out of sample error (the cross-validation estimate is an out-of-sample estimate) we get the value of <code>0.54%</code>:</p>
 <pre class="r"><code>fit_crossvalidation$finalModel</code></pre>
 <pre><code>## 
