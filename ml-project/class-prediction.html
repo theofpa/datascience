@@ -70,19 +70,127 @@ Sections:
  why you made the choices you did
  use your prediction model to predict 20 different test cases
 --->
-<div id="get-and-clean-the-data" class="section level1">
-<h1>Get and clean the data</h1>
+
+<div id="get-and-clean-the-data" class="section level3">
+<h3>Get and clean the data</h3>
+<p>Load the data, keep only the features with full values, delete useless features and split to training and validation datasets.</p>
 <pre class="r"><code>library(caret)</code></pre>
 <pre><code>## Loading required package: lattice
 ## Loading required package: ggplot2</code></pre>
-<pre class="r"><code>download.file(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;, destfile = &quot;pml-training.csv&quot;, method = &quot;curl&quot;)
-trainingraw &lt;- read.table(&quot;./pml-training.csv&quot;,sep=&quot;,&quot;,header=TRUE)
-download.file(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;, destfile = &quot;pml-testing.csv&quot;, method = &quot;curl&quot;)
-testing &lt;- read.table(&quot;./pml-testing.csv&quot;,sep=&quot;,&quot;,header=TRUE)
+<pre class="r"><code>setwd(&quot;/Users/theofpa/Development/datasciencecoursera/ml-project/&quot;)
+traincsv&lt;-&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;
+testcsv&lt;-&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;</code></pre>
+<pre class="r"><code>download.file(traincsv, destfile = &quot;pml-training.csv&quot;, method = &quot;curl&quot;)
+download.file(testcsv, destfile = &quot;pml-testing.csv&quot;, method = &quot;curl&quot;)</code></pre>
+<pre class="r"><code>trainingraw &lt;- read.table(&quot;./pml-training.csv&quot;,sep=&quot;,&quot;,na.strings = c(&quot;NA&quot;,&quot;&quot;),header=TRUE)
+testing &lt;- read.table(&quot;./pml-testing.csv&quot;,sep=&quot;,&quot;,na.strings = c(&quot;NA&quot;,&quot;&quot;),header=TRUE)
 
 inTrain &lt;- createDataPartition(trainingraw$classe, p=0.70, list=FALSE)
-training &lt;- trainingraw[inTrain, ]
-validation &lt;- trainingraw[-inTrain, ]</code></pre>
+training &lt;- trainingraw[inTrain,]
+validation &lt;- trainingraw[-inTrain,]
+
+training&lt;-training[,colSums(is.na(training)) == 0]
+classe&lt;-training$classe
+nums &lt;- sapply(training, is.numeric)
+training&lt;-cbind(classe,training[,nums])
+training$X&lt;-training$num_window&lt;-NULL
+
+validation&lt;-validation[,colSums(is.na(validation)) == 0]
+vclasse&lt;-validation$classe
+vnums &lt;- sapply(validation, is.numeric)
+validation&lt;-cbind(vclasse,validation[,vnums])
+colnames(validation)[1]&lt;-&quot;classe&quot;
+validation$X&lt;-validation$num_window&lt;-NULL
+
+testing&lt;-testing[,colSums(is.na(testing)) == 0]
+tnums &lt;- sapply(testing, is.numeric)
+testing&lt;-testing[,tnums]
+testing$X&lt;-testing$num_window&lt;-NULL</code></pre>
+</div>
+<div id="model-building" class="section level3">
+<h3>Model building</h3>
+<p>Fit a model using random forest, running in parallel with 8 processes on i7 the training of the model took ~22 minutes.</p>
+<pre class="r"><code>library(doMC)
+registerDoMC(cores = 8)
+fit &lt;- train(training$classe~.,data=training, method=&quot;rf&quot;)
+save(fit,file=&quot;fit.RData&quot;)</code></pre>
+<pre class="r"><code>load(file = &quot;./fit.RData&quot;)
+fit$results</code></pre>
+<pre><code>##   mtry Accuracy  Kappa AccuracySD  KappaSD
+## 1    2   0.9920 0.9899  0.0016031 0.002028
+## 2   28   0.9962 0.9952  0.0008519 0.001077
+## 3   54   0.9909 0.9885  0.0034958 0.004420</code></pre>
+</div>
+<div id="error-estimation-with-cross-validation" class="section level3">
+<h3>Error estimation with cross validation</h3>
+<p>Using the model that we’ve trained, we’re performing a cross validation with the rest of data from the dataset reserved for this reason. The out of error rate is expected to be low as accuracy of the model observed above is 99.88%.</p>
+<pre class="r"><code>traincontrol &lt;- trainControl(method = &quot;cv&quot;, number = 5)</code></pre>
+<pre class="r"><code>fit_crossvalidation &lt;- train(validation$classe~.,data=validation, method=&quot;rf&quot;,trControl=traincontrol)
+save(fit_crossvalidation,file=&quot;fit_crossvalidation.RData&quot;)</code></pre>
+<pre class="r"><code>load(file=&quot;./fit_crossvalidation.RData&quot;)
+fit_crossvalidation$resample</code></pre>
+<pre><code>##   Accuracy  Kappa Resample
+## 1   0.9966 0.9957    Fold1
+## 2   0.9889 0.9860    Fold3
+## 3   0.9889 0.9860    Fold2
+## 4   0.9907 0.9882    Fold5
+## 5   0.9907 0.9882    Fold4</code></pre>
+<pre class="r"><code>fit_crossvalidation$results</code></pre>
+<pre><code>##   mtry Accuracy  Kappa AccuracySD  KappaSD
+## 1    2   0.9832 0.9787   0.002282 0.002890
+## 2   28   0.9912 0.9888   0.003160 0.003999
+## 3   54   0.9866 0.9830   0.004944 0.006261</code></pre>
+<pre class="r"><code>confusionMatrix(predict(fit_crossvalidation, newdata=validation), validation$classe)</code></pre>
+<pre><code>## Loading required package: randomForest
+## randomForest 4.6-7
+## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## Confusion Matrix and Statistics
+## 
+##           Reference
+## Prediction    A    B    C    D    E
+##          A 1673    0    0    0    0
+##          B    1 1132    3    0    0
+##          C    0    7 1018    7    0
+##          D    0    0    5  957    6
+##          E    0    0    0    0 1076
+## 
+## Overall Statistics
+##                                         
+##                Accuracy : 0.995         
+##                  95% CI : (0.993, 0.997)
+##     No Information Rate : 0.284         
+##     P-Value [Acc &gt; NIR] : &lt;2e-16        
+##                                         
+##                   Kappa : 0.994         
+##  Mcnemar's Test P-Value : NA            
+## 
+## Statistics by Class:
+## 
+##                      Class: A Class: B Class: C Class: D Class: E
+## Sensitivity             0.999    0.994    0.992    0.993    0.994
+## Specificity             1.000    0.999    0.997    0.998    1.000
+## Pos Pred Value          1.000    0.996    0.986    0.989    1.000
+## Neg Pred Value          1.000    0.999    0.998    0.999    0.999
+## Prevalence              0.284    0.194    0.174    0.164    0.184
+## Detection Rate          0.284    0.192    0.173    0.163    0.183
+## Detection Prevalence    0.284    0.193    0.175    0.164    0.183
+## Balanced Accuracy       1.000    0.997    0.995    0.995    0.997</code></pre>
+</div>
+<div id="predict-the-20-test-cases" class="section level3">
+<h3>Predict the 20 test cases</h3>
+<p>Finally, to predict the classe of the testing dataset, we’re applying the prediction using the model we’ve trained and output the results in the respective files as adviced by the instructor:</p>
+<pre class="r"><code>test_prediction&lt;-predict(fit, newdata=testing)
+test_prediction</code></pre>
+<pre><code>##  [1] B A B A A E D B A A B C B A E E A B B B
+## Levels: A B C D E</code></pre>
+<pre class="r"><code>pml_write_files = function(x){
+  n = length(x)
+  for(i in 1:n){
+    filename = paste0(&quot;problem_id_&quot;,i,&quot;.txt&quot;)
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+  }
+}
+pml_write_files(test_prediction)</code></pre>
 </div>
 
 
