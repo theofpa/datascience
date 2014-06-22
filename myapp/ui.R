@@ -4,17 +4,16 @@ library(shiny)
 shinyUI(
   pageWithSidebar(
     # Application title
-    headerPanel("Diabetes prediction"),
+    headerPanel("Weather prediction"),
   
     sidebarPanel(
-      numericInput('glucose', 'Glucose mg/dl', 90, min = 50, max = 200, step = 5),
+      textInput('city', "Please specify the name of the city and optionally its country code." , "Amsterdam,NL"),
       submitButton('Submit')
     ),
     mainPanel(
-        h3('Results of prediction'),
-        h4('You entered'),
+        h4("You've search for:"),
         verbatimTextOutput("inputValue"),
-        h4('Which resulted in a prediction of '),
+        h4('Available results:'),
         verbatimTextOutput("prediction")
     )
   )
