@@ -64,12 +64,12 @@
     <h2>Openweather data and API</h2>
   </hgroup>
   <article data-timings="">
-    <p><a href="http://www.openweathermap.org/api">OpenWeatherMap provides a REST API</a> to which accepts calls by city name:</p>
+    <p><a href="http://www.openweathermap.org/api">OpenWeatherMap provides a REST API</a> which accepts calls by city name:</p>
 
 <pre><code>http://api.openweathermap.org/data/2.5/weather?q=London&amp;mode=xml
 </code></pre>
 
-<p>Returns XML which can be parsed by the XML library of R. The application loads data for a given <code>city</code> and construct the XML object:</p>
+<p>It returns XML which can be parsed by the XML library of R. The application loads data for a given <code>city</code> and construct the XML object:</p>
 
 <pre><code class="r">library(XML)
 url = paste( &quot;http://api.openweathermap.org/data/2.5/weather?mode=xml&amp;q=&quot;,

@@ -23,11 +23,11 @@ The application built during this small project is showing the weather status of
 
 ## Openweather data and API
 
-[OpenWeatherMap provides a REST API](http://www.openweathermap.org/api) to which accepts calls by city name:
+[OpenWeatherMap provides a REST API](http://www.openweathermap.org/api) which accepts calls by city name:
 ```
 http://api.openweathermap.org/data/2.5/weather?q=London&mode=xml
 ```
-Returns XML which can be parsed by the XML library of R. The application loads data for a given `city` and construct the XML object:
+It returns XML which can be parsed by the XML library of R. The application loads data for a given `city` and construct the XML object:
 ```{r,eval=FALSE}
 library(XML)
 url = paste( "http://api.openweathermap.org/data/2.5/weather?mode=xml&q=",
