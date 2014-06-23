@@ -2,7 +2,7 @@
 title       : Weather status
 subtitle    : Using open weather data and API
 author      : Theofilos Papapanagiotou
-job         : Developing Data Products, Coursera, 2014-06-23
+job         : Developing Data Products, Coursera
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
@@ -66,7 +66,9 @@ The temperature is 292.42 Kelvin and humidity is 64 %.
 --- .class #id 
 
 ## Result
-Below we observe a screenshot showing a search based on the city Amsterdam as a search keyword:
+Below we observe a screenshot showing a search based on the city Amsterdam as a search keyword.
+
+[myapp](https://theofpa.shinyapps.io/myapp/) is available online in github pages.
 
 <div style='text-align: center;'>
     <img src='assets/img/slidify_myapp.png' />

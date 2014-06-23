@@ -64,7 +64,9 @@ The temperature is 292.42 Kelvin and humidity is 64 %.
 --- .class #id 
 
 ## Result
-Below we observe a screenshot showing a search based on the city Amsterdam as a search keyword:
+Below we observe a screenshot showing a search based on the city Amsterdam as a search keyword.
+
+[myapp](https://theofpa.shinyapps.io/myapp/) is available online in github pages.
 
 <div style='text-align: center;'>
     <img src='assets/img/slidify_myapp.png' />
