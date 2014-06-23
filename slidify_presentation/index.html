@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test presentation</title>
+  <title>Weather status</title>
   <meta charset="utf-8">
-  <meta name="description" content="Test presentation">
+  <meta name="description" content="Weather status">
   <meta name="author" content="Theofilos Papapanagiotou">
   <meta name="generator" content="slidify" />
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,9 +32,9 @@
     <!-- LOGO SLIDE -->
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
-    <h1>Test presentation</h1>
-    <h2></h2>
-    <p>Theofilos Papapanagiotou<br/></p>
+    <h1>Weather status</h1>
+    <h2>Using open weather data and API</h2>
+    <p>Theofilos Papapanagiotou<br/>Developing Data Products, Coursera, 2014-06-23</p>
   </hgroup>
   <article></article>  
 </slide>
@@ -43,14 +43,17 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <hgroup>
-    <h2>Read-And-Delete</h2>
+    <h2>A weather status application</h2>
   </hgroup>
   <article data-timings="">
-    <ol>
-<li>Edit YAML front matter</li>
-<li>Write using R Markdown</li>
-<li>Use an empty line followed by three dashes to separate slides!</li>
-</ol>
+    <p>By using Shiny and the OpenWeatherMap we&#39;re able to integrate a weather status project.</p>
+
+<ul>
+<li><a href="http://shiny.rstudio.com">Shiny</a> provides an application framework for R to create interactive web pages.</li>
+<li><a href="http://www.openweathermap.org">OpenWeatherMap</a> provides open API to current weather data and forecast, by using data from 40,000 weather stations around the world.</li>
+</ul>
+
+<p>The application built during this small project is showing the weather status of a city based on the user input through a website.</p>
 
   </article>
   <!-- Presenter Notes -->
@@ -58,10 +61,67 @@
 
 <slide class="class" id="id" style="background:;">
   <hgroup>
-    <h2>Slide 2</h2>
+    <h2>Openweather data and API</h2>
   </hgroup>
   <article data-timings="">
-    <p>yet another page</p>
+    <p><a href="http://www.openweathermap.org/api">OpenWeatherMap provides a REST API</a> to which accepts calls by city name:</p>
+
+<pre><code>http://api.openweathermap.org/data/2.5/weather?q=London&amp;mode=xml
+</code></pre>
+
+<p>Returns XML which can be parsed by the XML library of R. The application loads data for a given <code>city</code> and construct the XML object:</p>
+
+<pre><code class="r">library(XML)
+url = paste( &quot;http://api.openweathermap.org/data/2.5/weather?mode=xml&amp;q=&quot;,
+             URLencode(city),sep=&#39;&#39;)
+xml = xmlTreeParse(url, useInternalNodes=TRUE)
+</code></pre>
+
+<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;current&gt;
+  &lt;city id=&quot;2759794&quot; name=&quot;Amsterdam&quot;&gt;&lt;country&gt;NL&lt;/country&gt;&lt;/city&gt;
+  &lt;temperature value=&quot;294.04&quot; min=&quot;290.93&quot; max=&quot;298.15&quot; unit=&quot;kelvin&quot;/&gt;
+  ...
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>XPath evaluation</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>XPath query the object to extract the temperature:</p>
+
+<pre><code class="r">condition=xpathSApply(xml,&quot;//current/clouds&quot;,xmlGetAttr,&quot;name&quot;)
+temp_c=xpathSApply(xml,&quot;//current/temperature&quot;,xmlGetAttr,&quot;value&quot;)
+humidity=xpathSApply(xml,&quot;//current/humidity&quot;,xmlGetAttr,&quot;value&quot;)
+country=xpathSApply(xml,&quot;//current/city/country&quot;,xmlValue)
+city=xpathSApply(xml,&quot;//current/city&quot;,xmlGetAttr,&quot;name&quot;)
+return(cat(paste(&quot;The weather prediction for&quot;, city, &quot;in&quot;,country,&quot;reports&quot;, condition,
+             &quot;The temperature is&quot;, temp_c, &quot;Kelvin and humidity is&quot;, humidity, &quot;%.&quot;)))
+</code></pre>
+
+<pre><code>The weather prediction for Amsterdam in NL reports sky is clear 
+The temperature is 292.42 Kelvin and humidity is 64 %.
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Result</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Below we observe a screenshot showing a search based on the city Amsterdam as a search keyword:</p>
+
+<div style='text-align: center;'>
+    <img src='assets/img/slidify_myapp.png' />
+</div>
 
   </article>
   <!-- Presenter Notes -->
@@ -73,14 +133,26 @@
     <ul>
       <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=1 title='Read-And-Delete'>
+        data-slide=1 title='A weather status application'>
          1
       </a>
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=2 title='Slide 2'>
+        data-slide=2 title='Openweather data and API'>
          2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='XPath evaluation'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Result'>
+         4
       </a>
     </li>
   </ul>
