@@ -1,0 +1,67 @@
+---
+title: "Data Scientists' bookmarks"
+output: html_document
+---
+
+Taxonomy of links given in the coursera data science specialization, since the courses are no longer available after finishing them.
+
+I would also call it the data scientists' bookmarks.
+
+# News
+
+* [O'Reilly Radar - Data](http://radar.oreilly.com/data)
+
+# Toolbox
+
+* [R](http://www.r-project.org/)
+  * [R short reference card](http://cran.r-project.org/doc/contrib/Short-refcard.pdf)
+  * [Bioconductor project](http://master.bioconductor.org/install/)
+  * [CRAN](http://cran.r-project.org)
+* [RStudio](http://www.rstudio.com/)
+* [GitHub](http://github.com)
+* Plotting systems
+  * R base
+  * lattics
+  * [ggplot2](http://docs.ggplot2.org/current/)
+* Markdown
+* LaTeX
+* R Markdown
+* [RPubs](https://rpubs.com)
+* [WolframAlpha](http://www.wolframalpha.com)
+* [rCharts](http://rcharts.io)
+* [slidify](http://ramnathv.github.io/slidify/)
+* [Shiny](http://shiny.rstudio.com)
+* [devtools](https://github.com/hadley/devtools)
+* [roxygen2](https://github.com/klutometis/roxygen)
+* [testthat](https://github.com/hadley/testthat)
+
+# Analysis
+
+* [Google Ngram](https://books.google.com/ngrams)
+
+# Clustering
+
+* Hierarchical
+* K-Means clustering
+* Dimension reduction
+
+# Statistics
+
+* [OpenIntro textbook](http://www.openintro.org/stat/textbook.php)
+
+# Machine Learning
+
+* [Boosting](http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf)
+
+# Discussion/help
+
+* [R mailing list](http://www.r-project.org/mail.html)
+* [Stackoverflow](http://stackoverflow.com)
+  * [DataScience](http://datascience.stackexchange.com)
+  * [CrossValidated](http://stats.stackexchange.com)
+
+# Online profile
+
+* [GitHub](http://github.com)
+* [RPubs](https://rpubs.com)
+* [figshare](http://figshare.com/account/my_data)
