@@ -10,6 +10,12 @@ I would also call it the data scientists' bookmarks.
 # News
 
 * [O'Reilly Radar - Data](http://radar.oreilly.com/data)
+* [R-bloggers](http://www.r-bloggers.com)
+* [Flowing Data](http://flowingdata.com)
+* [r/machinelearning](http://www.reddit.com/r/machinelearning)
+* [DataTau](http://www.datatau.com)
+* [Simply Statistics](http://simplystatistics.org)
+* [R-statistics](http://www.r-statistics.com)
 
 # Toolbox
 
@@ -38,7 +44,7 @@ I would also call it the data scientists' bookmarks.
 * [httr](http://cran.r-project.org/web/packages/httr/httr.pdf) for web scraping
 * [plyr](http://plyr.had.co.nz/09-user/)
 * [reshape](http://www.slideshare.net/jeffreybreen/reshaping-data-in-r)
-
+* [ProjectTemplate](http://projecttemplate.net)
 
 # Data stores
 
@@ -83,24 +89,18 @@ I would also call it the data scientists' bookmarks.
 * [Facebook](https://developers.facebook.com/) and [RFacebook](http://cran.r-project.org/web/packages/Rfacebook/)
 * [Google maps](https://developers.google.com/maps/) and [RGoogleMaps](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
 
-# Clustering
-
-* Hierarchical
-* K-Means clustering
-* Dimension reduction
-
-# Statistics
+# Books
 
 * [OpenIntro textbook](http://www.openintro.org/stat/textbook.php)
-
-# Machine Learning
-
+* [Elements of statistical learning](http://statweb.stanford.edu/~tibs/ElemStatLearn/)
 * [Boosting](http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf)
+* [Advanced Data Analysis From An Elementary Point of View](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf)
+* [Mathematical Statistics and Data Analysis](http://ihmsi.org/upload/John%20A.%20Rice%20-%20Mathematical%20Statistics%20and%20Data%20Analysis%20-%202nd%20Edition.pdf)
 
 # Discussion/help
 
 * [R mailing list](http://www.r-project.org/mail.html)
-* [Stackoverflow](http://stackoverflow.com)
+* [Stackoverflow R](http://stackoverflow.com/questions/tagged/r)
   * [DataScience](http://datascience.stackexchange.com)
   * [CrossValidated](http://stats.stackexchange.com)
 
