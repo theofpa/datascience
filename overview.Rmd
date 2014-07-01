@@ -16,6 +16,8 @@ I would also call it the data scientists' bookmarks.
 * [DataTau](http://www.datatau.com)
 * [Simply Statistics](http://simplystatistics.org)
 * [R-statistics](http://www.r-statistics.com)
+* [ErrorStatistics](http://errorstatistics.com)
+
 
 # Toolbox
 
@@ -45,6 +47,13 @@ I would also call it the data scientists' bookmarks.
 * [plyr](http://plyr.had.co.nz/09-user/)
 * [reshape](http://www.slideshare.net/jeffreybreen/reshaping-data-in-r)
 * [ProjectTemplate](http://projecttemplate.net)
+* [Caret](http://caret.r-forge.r-project.org/)
+  * [Model training and tuning](http://caret.r-forge.r-project.org/training.html)
+* [Statistics Toolbox](http://www.mathworks.nl/help/stats/index.html)
+* [Neural Network Toolbox](http://www.mathworks.nl/products/neural-network/)
+* [ML resources](http://www.sciencemag.org/site/feature/data/compsci/machine_learning.xhtml)
+* [Ramdom Forests](http://www.stat.berkeley.edu/%7Ebreiman/RandomForests/cc_home.htm)
+* [Google correlate](http://www.google.com/trends/correlate)
 
 # Data stores
 
@@ -88,6 +97,7 @@ I would also call it the data scientists' bookmarks.
 * [rOpenSci](http://ropensci.org/packages/index.html)
 * [Facebook](https://developers.facebook.com/) and [RFacebook](http://cran.r-project.org/web/packages/Rfacebook/)
 * [Google maps](https://developers.google.com/maps/) and [RGoogleMaps](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
+* [CKAN](http://docs.ckan.org/en/latest/user-guide.html) is a tool for making open data websites
 
 # Books
 
@@ -96,6 +106,8 @@ I would also call it the data scientists' bookmarks.
 * [Boosting](http://webee.technion.ac.il/people/rmeir/BoostingTutorial.pdf)
 * [Advanced Data Analysis From An Elementary Point of View](http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/ADAfaEPoV.pdf)
 * [Mathematical Statistics and Data Analysis](http://ihmsi.org/upload/John%20A.%20Rice%20-%20Mathematical%20Statistics%20and%20Data%20Analysis%20-%202nd%20Edition.pdf)
+* [Introduction to Statistical Learning](http://www-bcf.usc.edu/%7Egareth/ISL/)
+* [Model based clustering](http://www.stat.washington.edu/raftery/Research/PDF/fraley2002.pdf)
 
 # Discussion/help
 
