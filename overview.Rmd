@@ -37,8 +37,9 @@ I would also call it the data scientists' bookmarks.
 * [RPubs](https://rpubs.com)
 * [WolframAlpha](http://www.wolframalpha.com)
 * [rCharts](http://rcharts.io)
+* [rMaps](http://rmaps.github.io)
 * [slidify](http://ramnathv.github.io/slidify/)
-* [Shiny](http://shiny.rstudio.com)
+* [Shiny](http://shiny.rstudio.com), [Shiny server](http://www.rstudio.com/shiny/server/)
 * [devtools](https://github.com/hadley/devtools)
 * [roxygen2](https://github.com/klutometis/roxygen)
 * [testthat](https://github.com/hadley/testthat)
@@ -54,6 +55,8 @@ I would also call it the data scientists' bookmarks.
 * [ML resources](http://www.sciencemag.org/site/feature/data/compsci/machine_learning.xhtml)
 * [Ramdom Forests](http://www.stat.berkeley.edu/%7Ebreiman/RandomForests/cc_home.htm)
 * [Google correlate](http://www.google.com/trends/correlate)
+* [Google Vis API](https://developers.google.com/chart/interactive/docs/gallery). [GoogleVis](http://cran.r-project.org/web/packages/googleVis/googleVis.pdf)
+
 
 # Data stores
 
