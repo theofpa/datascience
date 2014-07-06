@@ -18,6 +18,11 @@ I would also call it the data scientists' bookmarks.
 * [R-statistics](http://www.r-statistics.com)
 * [ErrorStatistics](http://errorstatistics.com)
 
+# Curriculum
+
+* [Zipfian Academy](http://www.zipfianacademy.com/blog/post/46864003608/a-practical-intro-to-data-science)
+* [OpenSource DataScience](http://datasciencemasters.org)
+* [Metacademy](http://metacademy.org)
 
 # Toolbox
 
@@ -118,6 +123,7 @@ I would also call it the data scientists' bookmarks.
 * [Stackoverflow R](http://stackoverflow.com/questions/tagged/r)
   * [DataScience](http://datascience.stackexchange.com)
   * [CrossValidated](http://stats.stackexchange.com)
+* [MetaOptimize](http://metaoptimize.com/qa/)
 
 # Online profile
 
@@ -127,3 +133,5 @@ I would also call it the data scientists' bookmarks.
 * [Google Scholar](http://scholar.google.com)
 * [PLOSONE](http://www.plosone.org/), peer-review
 * [ORCID](http://orcid.org/), sso for academia
+* [HackerRank](https://www.hackerrank.com)
+* [KhanAcademy](https://www.khanacademy.org)
