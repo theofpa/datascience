@@ -107,6 +107,12 @@ I would also call it the data scientists' bookmarks.
 * [Google maps](https://developers.google.com/maps/) and [RGoogleMaps](http://cran.r-project.org/web/packages/RgoogleMaps/index.html)
 * [CKAN](http://docs.ckan.org/en/latest/user-guide.html) is a tool for making open data websites
 
+# Visualization
+
+* Hans Rosling, [The Joy of Stats](http://www.gapminder.org/videos/the-joy-of-stats/)
+* Pat Hanaran, [Tools for Data Enthusiasts](http://vimeo.com/50723101)
+* Jeffrey Heer, Michael Bostock, Vadim Ogievetsky, [A Tour through the Visualization Zoo](http://queue.acm.org/detail.cfm?id=1805128), Communications of the ACM, Volume 53 Issue 6, June 2010
+
 # Books
 
 * [OpenIntro textbook](http://www.openintro.org/stat/textbook.php)
