@@ -61,7 +61,7 @@ I would also call it the data scientists' bookmarks.
 * [Ramdom Forests](http://www.stat.berkeley.edu/%7Ebreiman/RandomForests/cc_home.htm)
 * [Google correlate](http://www.google.com/trends/correlate)
 * [Google Vis API](https://developers.google.com/chart/interactive/docs/gallery). [GoogleVis](http://cran.r-project.org/web/packages/googleVis/googleVis.pdf)
-
+* yhat [ScienceOps](http://cloud.yhathq.com/) an online framework to expose an API of your ML code, and [ScienceBox](http://docs.yhathq.com/sciencebox/intro/index.html), an EC2 data workstation
 
 # Data stores
 
