@@ -1,10 +1,12 @@
 \documentclass{article}
+\usepackage{hyperref}
+\usepackage{listings}
 
 \begin{document}
 \SweaveOpts{concordance=TRUE}
 
 
-\subsection{Understanding the problem}
+\section{Understanding the problem}
 
 Tasks to accomplish
 
@@ -12,15 +14,57 @@ Obtaining the data - Can you download the data and load/manipulate it in R?
 
 Familiarizing yourself with NLP and text mining - Learn about the basics of natural language processing and how it relates to the data science process you have learned in the Data Science Specialization.
 
+\subsection{Obtaining the data}
+
+Download the data from Amazon S3.
+
+Reference to the website which is the original source of the corpus, maintained by \href{http://www.corpora.heliohost.org}{Hans Christensen}
+
+The dataset contains news, blogs and tweets in four different languages, English, German, Russian and Finish.
+
+
+References:
+Corpus website
+Dataset description. Lines, sizes, etc.
+tm and tau libraries
+Corpus statistics
+
 
 
 Questions to consider
 
 What do the data look like?
 
+Summary statistics about the data sets.
+
+basic summaries of the three files? Word counts, line counts and basic data tables
+
+The english Corpus has three datasets, with the following statistics:
+
+Twitter: Small sentence(s), maximum number of characters observed is 213. There are 167 million characters, in 30 million words, in 2.3 million tweets.
+Blogs: Paragraphs. Multiple sentences per blog. Largest sentence has 40835 characters. In total, this dataset has 37 million words in less than a million lines.
+News: Paragraphs. Multiple sentences. Largest sentence has 11384 characters, total words are 30 million in 1 million lines.
+
+\begin{lstlisting}
+> docs<-Corpus(DirSource(file.path(".", "dataset", "en_US")))
+
+\end{lstlisting}
+
 Where do the data come from?
 
+Twitter
+Blogs
+News
+
 Can you think of any other data sources that might help you in this project?
+
+Mailboxes.
+Facebook/googleplus/linkedin.
+Twitter stream.
+
+
+\subsection{NLP and text mining}
+
 
 What are the common steps in natural language processing?
 
