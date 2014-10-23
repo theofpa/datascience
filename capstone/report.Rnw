@@ -66,15 +66,28 @@ Twitter stream.
 \subsection{NLP and text mining}
 
 
+Familiarizing yourself with NLP and text mining - Learn about the basics of natural language processing and how it relates to the data science process you have learned in the Data Science Specialization.
+
+
 What are the common steps in natural language processing?
+
+The NLP pipeline involves the following steps:
+
+\begin{itemize}
+  \item EOS detection. Are the 3 datasets are already categorized like this?
+  \item Tokenization. In the four languages, tokens are words, splitted by space. In the languages that use pictograms, there is no space to seperate the tokens in sentences.
+  \item Profanity filtering. 
+  \item Part-of-speech tagging. Tag tokens by nouns, verbs, etc.
+  \item Chunking. Grammar based analysis of the tagged tokens, not statistical analysis.
+  \item Extraction
+\end{itemize}
+
 
 What are some common issues in the analysis of text data?
 
+
+
 What is the relationship between NLP and the concepts you have learned in the Specialization?
-
-
-
-
 
 
 
