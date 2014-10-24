@@ -90,6 +90,25 @@ What are some common issues in the analysis of text data?
 What is the relationship between NLP and the concepts you have learned in the Specialization?
 
 
+\section{Data acquisition and cleaning}
+
+Tokenization - identifying appropriate tokens such as words, punctuation, and numbers. Writing a function that takes a file as input and returns a tokenized version of it.
+
+Profanity filtering - removing profanity and other words you do not want to predict.
+
+Loading the data
+
+The load of the data in R has been done in the Corpus data structure, provided by the text mining framework library, tm. That loads the corpus in to the memory.
+
+Data frame is not a good data type to load the text, because it is prone to dimentionality problems. Corpus is using lists.
+
+\subsection{Tokenization}
+
+\subsection{Profanity filtering}
+
+
+
+\section{Exploratory analysis}
 
 
 
