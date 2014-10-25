@@ -102,6 +102,71 @@ The load of the data in R has been done in the Corpus data structure, provided b
 
 Data frame is not a good data type to load the text, because it is prone to dimentionality problems. Corpus is using lists.
 
+\begin{lstlisting}
+docs<-Corpus(DirSource(file.path(".", "dataset", "en_US")))
+\end{lstlisting}
+
+We can address to one of the documents of the Corpus using the document index, and to check one sentence of one document we can continue using nested references.
+
+\begin{lstlisting}
+> length(docs[[3]])
+[1] 2360148
+> docs[[3]][9]
+[1] "The new sundrop commercial ...hehe love at first sight"
+\end{lstlisting}
+
+
+Cleaning
+
+non-UTF-8 characters in the corpus
+
+Cleaning by changing all text to lowercase, remove all numbers and punctuation. 
+
+\begin{lstlisting}
+sdocs <- tm_map(sdocs, content_transformer(tolower))
+sdocs <- tm_map(sdocs, removeNumbers)
+sdocs <- tm_map(sdocs, removePunctuation)
+sdocs <- tm_map(sdocs, stripWhitespace)
+\end{lstlisting}
+
+Removal of english stop-words is not recommended because we are looking for a predictive model for text.
+
+remove smileys and other utf-8 characters
+
+
+
+Sampling
+
+Instead of importing the whole files in our dataset via the Corpus(), we can take a sample of the data by manually reading a portion of one file and append it in a sample corpus 
+
+\begin{lstlisting}
+con <- file("./dataset/en_US/en_US.blogs.txt", "r")
+sampleb <-readLines(con, 1000)
+close(con)
+con <- file("./dataset/en_US/en_US.news.txt", "r")
+samplen <-readLines(con, 1000)
+close(con)
+con <- file("./dataset/en_US/en_US.twitter.txt", "r")
+samplet <-readLines(con, 1000)
+close(con)
+bdocs <- Corpus(VectorSource(sampleb))
+ndocs <- Corpus(VectorSource(samplen))
+tdocs <- Corpus(VectorSource(samplet))
+\end{lstlisting}
+
+Sentence Tokenization
+
+\begin{lstlisting}
+install.packages('qdap')
+library(qdap)
+sent_detect( "Here is a sentence.  And another one! Where does it end? Nobody knows." )
+
+tm_map(crps , sent_detect, endmarks = c("?", ".", "!", "|", ":", "\n","\r\n"))
+corpus <- tm_map(us_files, function(x) strsplit(x, "\\."))
+
+\end{lstlisting}
+
+
 \subsection{Tokenization}
 
 \subsection{Profanity filtering}
