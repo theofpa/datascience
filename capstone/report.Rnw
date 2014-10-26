@@ -169,6 +169,30 @@ corpus <- tm_map(us_files, function(x) strsplit(x, "\\."))
 
 \subsection{Tokenization}
 
+identifying appropriate tokens such as words, punctuation, and numbers. Writing a function that takes a file as input and returns a tokenized version of it.
+
+Two functions of \textbf{tm} library provide tokenization for R.
+
+\begin{itemize}
+\item scan\_tokenizer()
+\item MC\_tokenizer()
+\item NGramTokenizer()
+\end{itemize}
+
+\textbf{scan\_tokenizer()} splits the text of the corpus to a character vector, by using the blankspace as the delimiter. Anything between spaces is considered a word.
+
+\textbf{MC\_tokenizer()} splits the text of the corpus to a character vector, and ignores the punctuation, parenthesis, numbers, etc.
+
+\textbf{NGramTokenizer()} splits a string to n-grams.
+
+\begin{lstlisting}
+library('RWeka')
+ngram <- 2
+options(mc.cores=1)
+BigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+tdm <- TermDocumentMatrix(sdocs, control = list(tokenize = BigramTokenizer))
+\end{lstlisting}
+
 \subsection{Profanity filtering}
 
 
