@@ -195,6 +195,25 @@ tdm <- TermDocumentMatrix(sdocs, control = list(tokenize = BigramTokenizer))
 
 \subsection{Profanity filtering}
 
+Profanity filtering - removing profanity and other words you do not want to predict.
+
+Google list of swearing words is available through the dwyl.com website. @jamiew created a list of the words in \href{https://gist.github.com/jamiew/1112488}{his gist}.
+
+Removal of the swearing words doesn't make sense, doesn't help us in prediction:
+
+\begin{lstlisting}
+> sdocs[[172]]$content
+[1] "\342\200\234: yeah, l could be the bigger person, or you could just shut the fuck up.\342\200\235"
+> sdocs <- tm\_map(sdocs, removeWords, swears)
+> sdocs[[172]]$content
+[1] "\342\200\234: yeah, l could be the bigger person, or you could just shut the  up.\342\200\235"
+\end{lstlisting}
+
+Instead, we can remove the whole sentences that have eroneous content:
+
+\begin{lstlisting}
+sdocs<-sdocs[-grep(paste(swears,collapse=" | "),sdocs$content)]
+\end{lstlisting}
 
 
 \section{Exploratory analysis}
