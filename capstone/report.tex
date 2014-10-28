@@ -233,9 +233,32 @@ frequencies of the words
 
 frequencies of the word pairs
 
-Questions
+\subsubsection{Distributions of word frequencies}
 
 Some words are more frequent than others - what are the distributions of word frequencies? 
+
+The distribution is following the Zipf's Law, according to which the frequency of any word is inversely proportional to its rank in the frequency table.
+
+\begin{lstlisting}
+par(mfrow=c(4,3))
+for (lang in c('en_US','de_DE','fi_FI','ru_RU'))
+{
+        for (media in c('blogs','news','twitter'))
+        {
+                con <- file(paste("./dataset/",lang,"/",lang,".",media,".txt",sep=''), "r")
+                sample <-readLines(con, 2000)
+                close(con)
+                sdocs <- VCorpus(VectorSource(sample),  readerControl = list(language=lang))
+                dtm <- DocumentTermMatrix(sdocs)
+                Zipf_plot(dtm)
+                mtext(paste(lang,media))
+        }
+        
+}
+title("Word frequency distribution per corpus language and media type, following Zipf's Law", outer=TRUE)
+\end{lstlisting}
+
+\includegraphics[width=0.98\textwidth]{graphics/zipf.pdf}
 
 What are the frequencies of 2-grams and 3-grams in the dataset? 
 
