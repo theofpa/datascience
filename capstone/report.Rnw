@@ -308,8 +308,24 @@ title("Trigram frequency distribution per corpus language and media type.", oute
 
 \includegraphics[width=0.98\textwidth]{graphics/trigrams_frequency.pdf}
 
-
 How many unique words do you need in a frequency sorted dictionary to cover 50% of all word instances in the language? 90%? 
+
+\begin{lstlisting}
+dtm <- DocumentTermMatrix(sdocs)
+allwords<-length(dtm\$i)
+words<-sort(colSums(as.matrix(dtm)),decreasing=TRUE)
+perc=.5
+suma=0
+for(i in 1:allwords)
+{
+        suma<-suma+words[[i]]
+        if(suma>=(perc*allwords))
+                {
+                print(i)
+                break
+        }
+}
+\end{lstlisting}
 
 How do you evaluate how many of the words come from foreign languages? 
 
