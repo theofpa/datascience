@@ -286,6 +286,30 @@ title("Bigram frequency distribution per corpus language and media type.", outer
 
 \includegraphics[width=0.98\textwidth]{graphics/bigrams_frequency.pdf}
 
+\begin{lstlisting}
+par(mfrow=c(4,3))
+for (lang in c('en_US','de_DE','fi_FI','ru_RU'))
+{
+        for (media in c('blogs','news','twitter'))
+        {
+                con <- file(paste("./dataset/",lang,"/",lang,".",media,".txt",sep=''), "r")
+                sample <-readLines(con, 2000)
+                close(con)
+                sdocs <- VCorpus(VectorSource(sample),  readerControl = list(language="en_US"))
+                ngram <- 3
+                options(mc.cores=1)
+                TrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+                ttdm <- TermDocumentMatrix(sdocs, control = list(tokenize = TrigramTokenizer))
+                Zipf_plot(ttdm)
+                mtext(paste(lang,media))
+        }
+}
+title("Trigram frequency distribution per corpus language and media type.", outer=TRUE)
+\end{lstlisting}
+
+\includegraphics[width=0.98\textwidth]{graphics/trigrams_frequency.pdf}
+
+
 How many unique words do you need in a frequency sorted dictionary to cover 50% of all word instances in the language? 90%? 
 
 How do you evaluate how many of the words come from foreign languages? 
