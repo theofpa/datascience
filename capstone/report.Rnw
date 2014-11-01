@@ -327,6 +327,18 @@ for(i in 1:allwords)
 }
 \end{lstlisting}
 
+\begin{center}
+    \begin{tabular}{ | l | l | l | l |}
+    \hline
+    language & twitter & blogs & news \\ \hline
+    en\_US &  195  & 116 &  247 \\ \hline
+    ru\_RU &  576  & 594 &  711  \\ \hline
+    fi\_FI &  1661 & 1665 & 2711  \\ \hline
+    de\_DE &  151  & 88 &  143  \\ \hline
+    \end{tabular}
+\end{center}
+
+
 How do you evaluate how many of the words come from foreign languages? 
 
 Can you think of a way to increase the coverage -- identifying words that may not be in the corpora or using a smaller number of words in the dictionary to cover the same number of phrases?
