@@ -1,0 +1,14 @@
+---
+title: "Capstone report"
+author: "Theofilos Papapanagiotou"
+date: "3 Nov 2014"
+output: html_document
+---
+
+The progress of the student that explores four languages corpus using Natural Language Processing (NLP) is reported below. The data are loaded, cleaned and an exploratory statistical analysis is applied. For some calculations sampling helps to have a faster result. A technical report including the reproducible code can be obtained from [github](https://github.com/theofpa/datasciencecoursera/blob/master/capstone/report.pdf).
+
+##Data statistics and methodology##
+
+##Data Exploration##
+
+## Next steps ##
