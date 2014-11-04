@@ -61,6 +61,107 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>The progress of the student that explores four languages corpus using Natural Language Processing (NLP) is reported below. The data are loaded, cleaned and an exploratory statistical analysis is applied. For some calculations sampling helps to have a faster result. A technical report including the reproducible code can be obtained from <a href="https://github.com/theofpa/datasciencecoursera/blob/master/capstone/report.pdf">github</a>.</p>
 <div id="data-statistics-and-methodology" class="section level2">
 <h2>Data statistics and methodology</h2>
+<p>The dataset is obtained from Amazon S3 url provided by the instructions, mirrored from the website <a href="http://www.corpora.heliohost.org">http://www.corpora.heliohost.org</a> which has the original source of the corpus, maintained by Hans Christensen.</p>
+<p>The dataset contains news, blogs and tweets in four different languages, English, German, Russian and Finish.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">dataset</th>
+<th align="left">words</th>
+<th align="left">characters</th>
+<th align="left">lines</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">de_DE.blogs.txt</td>
+<td align="left">12,653,185</td>
+<td align="left">85,459,666</td>
+<td align="left">371,440</td>
+</tr>
+<tr class="even">
+<td align="left">de_DE.news.txt</td>
+<td align="left">13,219,388</td>
+<td align="left">95,591,959</td>
+<td align="left">244,743</td>
+</tr>
+<tr class="odd">
+<td align="left">de_DE.twitter.txt</td>
+<td align="left">11,803,735</td>
+<td align="left">75,578,341</td>
+<td align="left">947,774</td>
+</tr>
+<tr class="even">
+<td align="left">en_US.blogs.txt</td>
+<td align="left">37,334,690</td>
+<td align="left">210,160,014</td>
+<td align="left">899,288</td>
+</tr>
+<tr class="odd">
+<td align="left">en_US.news.txt</td>
+<td align="left">34,372,720</td>
+<td align="left">205,811,889</td>
+<td align="left">1,010,242</td>
+</tr>
+<tr class="even">
+<td align="left">en_US.twitter.txt</td>
+<td align="left">30,374,206</td>
+<td align="left">167,105,338</td>
+<td align="left">2,360,148</td>
+</tr>
+<tr class="odd">
+<td align="left">fi_FI.blogs.txt</td>
+<td align="left">12,732,013</td>
+<td align="left">108,503,595</td>
+<td align="left">439,785</td>
+</tr>
+<tr class="even">
+<td align="left">fi_FI.news.txt</td>
+<td align="left">10,446,725</td>
+<td align="left">94,234,350</td>
+<td align="left">485,758</td>
+</tr>
+<tr class="odd">
+<td align="left">fi_FI.twitter.txt</td>
+<td align="left">3,153,003</td>
+<td align="left">25,331,142</td>
+<td align="left">285,214</td>
+</tr>
+<tr class="even">
+<td align="left">ru_RU.blogs.txt</td>
+<td align="left">9,691,167</td>
+<td align="left">116,855,835</td>
+<td align="left">337,100</td>
+</tr>
+<tr class="odd">
+<td align="left">ru_RU.news.txt</td>
+<td align="left">9,416,099</td>
+<td align="left">118,996,424</td>
+<td align="left">196,360</td>
+</tr>
+<tr class="even">
+<td align="left">ru_RU.twitter.txt</td>
+<td align="left">9,542,485</td>
+<td align="left">105,182,346</td>
+<td align="left">881,414</td>
+</tr>
+</tbody>
+</table>
+<p>Apart from the word count statistics, we can also extract other useful information, for example the english has the following statistics:</p>
+<ul>
+<li>Twitter: Small sentence(s), maximum number of characters observed is 213.</li>
+<li>Blogs: Paragraphs. Multiple sentences per blog. Largest sentence has 40835 characters.</li>
+<li>News: Paragraphs. Multiple sentences. Largest sentence has 11384 characters.</li>
+</ul>
+<p>The NLP pipeline involves the steps shown below, which this report partially follows.</p>
+<ul>
+<li>End of sentence detection, cleaning.</li>
+<li>Tokenization. In the four languages, tokens can be words or phrases, splitted by space. In the languages that use pictograms, there is no space to seperate the tokens in sentences.</li>
+<li>Profanity filtering.</li>
+<li>Part-of-speech tagging. Tag tokens by nouns, verbs, etc.</li>
+<li>Chunking. Grammar based analysis of the tagged tokens, not statistical analysis.</li>
+<li>Extraction</li>
+</ul>
 </div>
 <div id="data-exploration" class="section level2">
 <h2>Data Exploration</h2>
