@@ -1,7 +1,7 @@
 ---
 title: "Capstone report"
 author: "Theofilos Papapanagiotou"
-date: "3 Nov 2014"
+date: "5 Nov 2014"
 output: html_document
 ---
 
@@ -46,5 +46,24 @@ The NLP pipeline involves the steps shown below, which this report partially fol
 * Extraction
 
 ##Data Exploration##
+
+###Acquisition, cleaning, sampling###
+
+The load of the data in R has been done in the Corpus data structure, provided by the text mining framework library, tm. That loads the corpus in to the memory.
+
+Data frame is not a good data type to load the text, because it is prone to dimentionality problems. Corpus is using lists.
+
+The cleaning of the datasets has been done as follows:
+
+* Multi-sentenses paragraphs (blog posts, news articles) have been broken to seperate entries in our dataset.
+* All capital leters have been transformed to their equivalent lower, (ex. "This" has been transformed to "this") so our algorithm will summarize their apperence in one key.
+* All numbers have been removed since it is not useful for the prediction, and will keep our dataset small.
+* Punctuation has been removed, to have the words counted as one key in our algorithm (ex. "this," will be counted as "this")
+* Whitespaces have been stripped (ex " this " will be counted as "this")
+
+### Next word prediction exercise ###
+###Profanity Filtering###
+###Distribution of word frequencies###
+
 
 ## Next steps ##

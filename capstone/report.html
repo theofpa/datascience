@@ -165,6 +165,28 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="data-exploration" class="section level2">
 <h2>Data Exploration</h2>
+<div id="acquisition-cleaning-sampling" class="section level3">
+<h3>Acquisition, cleaning, sampling</h3>
+<p>The load of the data in R has been done in the Corpus data structure, provided by the text mining framework library, tm. That loads the corpus in to the memory.</p>
+<p>Data frame is not a good data type to load the text, because it is prone to dimentionality problems. Corpus is using lists.</p>
+<p>The cleaning of the datasets has been done as follows:</p>
+<ul>
+<li>Multi-sentenses paragraphs (blog posts, news articles) have been broken to seperate entries in our dataset.</li>
+<li>All capital leters have been transformed to their equivalent lower, (ex. “This” has been transformed to “this”) so our algorithm will summarize their apperence in one key.</li>
+<li>All numbers have been removed since it is not useful for the prediction, and will keep our dataset small.</li>
+<li>Punctuation has been removed, to have the words counted as one key in our algorithm (ex. “this,” will be counted as “this”)</li>
+<li>Whitespaces have been stripped (ex &quot; this &quot; will be counted as “this”)</li>
+</ul>
+</div>
+<div id="next-word-prediction-exercise" class="section level3">
+<h3>Next word prediction exercise</h3>
+</div>
+<div id="profanity-filtering" class="section level3">
+<h3>Profanity Filtering</h3>
+</div>
+<div id="distribution-of-word-frequencies" class="section level3">
+<h3>Distribution of word frequencies</h3>
+</div>
 </div>
 <div id="next-steps" class="section level2">
 <h2>Next steps</h2>
