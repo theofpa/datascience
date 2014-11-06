@@ -54,7 +54,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="header">
 <h1 class="title">Capstone report</h1>
 <h4 class="author"><em>Theofilos Papapanagiotou</em></h4>
-<h4 class="date"><em>3 Nov 2014</em></h4>
+<h4 class="date"><em>6 Nov 2014</em></h4>
 </div>
 
 
@@ -177,6 +177,8 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>Punctuation has been removed, to have the words counted as one key in our algorithm (ex. “this,” will be counted as “this”)</li>
 <li>Whitespaces have been stripped (ex &quot; this &quot; will be counted as “this”)</li>
 </ul>
+<p>Although usually the stop-words are removed from a dataset, it has not been followed because we are looking for a predictive model on text, and we don’t want to miss these words.</p>
+<p>Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.</p>
 </div>
 <div id="next-word-prediction-exercise" class="section level3">
 <h3>Next word prediction exercise</h3>

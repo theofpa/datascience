@@ -1,7 +1,7 @@
 ---
 title: "Capstone report"
 author: "Theofilos Papapanagiotou"
-date: "5 Nov 2014"
+date: "6 Nov 2014"
 output: html_document
 ---
 
@@ -60,6 +60,12 @@ The cleaning of the datasets has been done as follows:
 * All numbers have been removed since it is not useful for the prediction, and will keep our dataset small.
 * Punctuation has been removed, to have the words counted as one key in our algorithm (ex. "this," will be counted as "this")
 * Whitespaces have been stripped (ex " this " will be counted as "this")
+
+Although usually the stop-words are removed from a dataset, it has not been followed because we are looking for a predictive model on text, and we don't want to miss these words.
+
+Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.
+
+
 
 ### Next word prediction exercise ###
 ###Profanity Filtering###
