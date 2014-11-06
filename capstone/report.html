@@ -180,6 +180,16 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Although usually the stop-words are removed from a dataset, it has not been followed because we are looking for a predictive model on text, and we don’t want to miss these words.</p>
 <p>Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.</p>
 </div>
+<div id="tokenization" class="section level3">
+<h3>Tokenization</h3>
+<p>Multiple functions provide tokenization for R.</p>
+<ul>
+<li>scan_tokenizer() splits the text of the corpus to a character vector, by using the blankspace as the delimiter. Anything between spaces is considered a word.</li>
+<li>MC_tokenizer() splits the text of the corpus to a character vector, and ignores the punctuation, parenthesis, numbers, etc.</li>
+<li>NGramTokenizer() splits a string to n-grams, so we will have not only unigrams (words) like the two tokenizers above can give, but also bigrams, trigrams, etc (phrases of two/three words).</li>
+</ul>
+<p>By using the NGramTokenizer method, we calculate the unigrams/bigrams/trigrams for our english corpus, which will be used for our prediction model.</p>
+</div>
 <div id="next-word-prediction-exercise" class="section level3">
 <h3>Next word prediction exercise</h3>
 </div>

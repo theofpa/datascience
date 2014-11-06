@@ -66,6 +66,16 @@ Although usually the stop-words are removed from a dataset, it has not been foll
 Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.
 
 
+###Tokenization###
+
+Multiple functions provide tokenization for R.
+
+* scan_tokenizer() splits the text of the corpus to a character vector, by using the blankspace as the delimiter. Anything between spaces is considered a word.
+* MC_tokenizer() splits the text of the corpus to a character vector, and ignores the punctuation, parenthesis, numbers, etc.
+* NGramTokenizer() splits a string to n-grams, so we will have not only unigrams (words) like the two tokenizers above can give, but also bigrams, trigrams, etc (phrases of two/three words).
+
+By using the NGramTokenizer method, we calculate the unigrams/bigrams/trigrams for our english corpus, which will be used for our prediction model.
+
 
 ### Next word prediction exercise ###
 ###Profanity Filtering###
