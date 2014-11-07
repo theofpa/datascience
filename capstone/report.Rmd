@@ -1,7 +1,7 @@
 ---
 title: "Capstone report"
 author: "Theofilos Papapanagiotou"
-date: "6 Nov 2014"
+date: "7 Nov 2014"
 output: html_document
 ---
 
@@ -76,6 +76,20 @@ Multiple functions provide tokenization for R.
 
 By using the NGramTokenizer method, we calculate the unigrams/bigrams/trigrams for our english corpus, which will be used for our prediction model.
 
+
+```{r,echo=FALSE,message=F, warning=F}
+library(tm)
+library(RWeka)
+library(ggplot2)
+setwd("~/Development/datasciencecoursera/capstone")
+docs<-Corpus(DirSource(file.path(".","dataset", "sample")))
+
+
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+```
 
 ### Next word prediction exercise ###
 ###Profanity Filtering###
