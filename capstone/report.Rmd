@@ -90,6 +90,53 @@ docs <- tm_map(docs, removeNumbers)
 docs <- tm_map(docs, removePunctuation)
 docs <- tm_map(docs, stripWhitespace)
 ```
+```{r}
+par(mfrow=c(1,4))
+
+ngram <- 1
+options(mc.cores=1)
+UnigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+utdm <- TermDocumentMatrix(docs, control = list(tokenize = UnigramTokenizer))
+uni<-rowSums(as.matrix(utdm))
+
+ngram <- 2
+options(mc.cores=1)
+BigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+btdm <- TermDocumentMatrix(docs, control = list(tokenize = BigramTokenizer))
+bi<-rowSums(as.matrix(btdm))
+
+ngram <- 3
+options(mc.cores=1)
+TrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+ttdm <- TermDocumentMatrix(docs, control = list(tokenize = TrigramTokenizer))
+tri<-rowSums(as.matrix(ttdm))
+
+ngram <- 4
+options(mc.cores=1)
+QuadrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+qtdm <- TermDocumentMatrix(docs, control = list(tokenize = QuadrigramTokenizer))
+qua<-rowSums(as.matrix(qtdm))
+
+barplot(tail(sort(uni),10), las = 2, main = "Top 10 Unigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(bi),10), las = 2, main = "Top 10 Bigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(tri),10), las = 2, main = "Top 10 Trigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(qua),10), las = 2, main = "Top 10 Quadrigrams",cex.main = 1,horiz=TRUE)
+```
+
+The tokenization of the corpus in ngrams, results in a matrix of terms and their appearence count.
+
+This matrix is called **Term Document Matrix (TDM)** and it's our main data type which we are going to use for the predictions.
+
+The following example shows how the TDM is built, and what does the content of it look like.
+
+```{r,eval=FALSE}
+QuadrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=4,max=4))
+qtdm <- TermDocumentMatrix(docs, control = list(tokenize = QuadrigramTokenizer))
+qua<-rowSums(as.matrix(qtdm))
+```
+```{r}
+tail(sort(rowSums(as.matrix(qtdm))))
+```
 
 ### Next word prediction exercise ###
 ###Profanity Filtering###
