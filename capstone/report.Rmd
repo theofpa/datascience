@@ -150,6 +150,10 @@ quad['would mean the universe',]
 quad['would mean the best',]
 ```
 
+In the example above, we observe that **would mean the world** has the most references, the biggest probability that this is the next word.
+
+In a similar way, we expect to use the ngrams to predict the next word in a phrase, by matching the phrases which have the biggest probability of appearence.
+
 ###Profanity Filtering###
 ###Distribution of word frequencies###
 
