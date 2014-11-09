@@ -139,6 +139,17 @@ tail(sort(rowSums(as.matrix(qtdm))))
 ```
 
 ### Next word prediction exercise ###
+
+In the provided exercises, the frequency of the quadrigrams or trigrams of the end of a given phrase has been evaluated, to select the best answer:
+
+```{r}
+quad<-data.frame(sort(rowSums(as.matrix(qtdm)),decreasing=TRUE))
+quad['would mean the world',]
+quad['would mean the most',]
+quad['would mean the universe',]
+quad['would mean the best',]
+```
+
 ###Profanity Filtering###
 ###Distribution of word frequencies###
 
