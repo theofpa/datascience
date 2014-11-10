@@ -155,6 +155,14 @@ In the example above, we observe that **would mean the world** has the most refe
 In a similar way, we expect to use the ngrams to predict the next word in a phrase, by matching the phrases which have the biggest probability of appearence.
 
 ###Profanity Filtering###
+
+The sentenses that contain a swear word have been completely removed because:
+
+* The removal of only a swear word results in a sentence which doesn't help the prediction
+* The list of entries in the corpus which include swear words is relatively small
+
+This was done by using a google list of swearing words which is available through the dwyl.com website. @jamiew created a list of the words in https://gist.github.com/jamiew/1112488.
+
 ###Distribution of word frequencies###
 
 
