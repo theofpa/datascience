@@ -165,5 +165,27 @@ This was done by using a google list of swearing words which is available throug
 
 ###Distribution of word frequencies###
 
+By analysing the TDM further, we observe that the distribution of the unigrams (words) is inversely proportional to its rank in the frequency matrix. This is also known as [Zipf's Law](http://en.wikipedia.org/wiki/Zipf's_law) and its seen in all languages and media type.
+
+```{r, fig.width=15, fig.height=15, echo=FALSE,message=F, warning=F}
+par(mfrow=c(4,3))
+par(oma=c(0,0,5,0))
+par(ps = 12, cex = 1, cex.main = 1.5)
+for (lang in c('en_US','de_DE','fi_FI','ru_RU'))
+{
+        for (media in c('blogs','news','twitter'))
+        {
+                con <- file(paste("./dataset/",lang,"/",lang,".",media,".txt",sep=''), "r")
+                sample <-readLines(con, 2000)
+                close(con)
+                sdocs <- VCorpus(VectorSource(sample),  readerControl = list(language=lang))
+                dtm <- DocumentTermMatrix(sdocs)
+                Zipf_plot(dtm)
+                mtext(paste(lang,media))
+        }
+        
+}
+title("Word frequency distribution per corpus language and media type, following Zipf's Law", outer=TRUE)
+```
 
 ## Next steps ##
