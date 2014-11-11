@@ -1,7 +1,7 @@
 ---
 title: "Capstone report"
 author: "Theofilos Papapanagiotou"
-date: "7 Nov 2014"
+date: "11 Nov 2014"
 output: html_document
 ---
 
@@ -188,4 +188,14 @@ for (lang in c('en_US','de_DE','fi_FI','ru_RU'))
 title("Word frequency distribution per corpus language and media type, following Zipf's Law", outer=TRUE)
 ```
 
+If we sort the TDM by frequency of word appearence, we'll need the following amount of words to cover **half** of the word instances per language/media type:
+
+```{r, echo=FALSE, results='asis'}
+files1<-data.frame()
+files1<-rbind(files1,data.frame(language="en_US",twitter=195,blogs=116,news=247))
+files1<-rbind(files1,data.frame(language="ru_RU",twitter=576,blogs=594,news=711))
+files1<-rbind(files1,data.frame(language="fi_FI",twitter=1661,blogs=1665,news=2711))
+files1<-rbind(files1,data.frame(language="de_DE",twitter=151,blogs=88,news=143))
+knitr::kable(files1)
+```
 ## Next steps ##
