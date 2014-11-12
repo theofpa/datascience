@@ -198,4 +198,16 @@ files1<-rbind(files1,data.frame(language="fi_FI",twitter=1661,blogs=1665,news=27
 files1<-rbind(files1,data.frame(language="de_DE",twitter=151,blogs=88,news=143))
 knitr::kable(files1)
 ```
+
+To cover the **90%** of the word instances we'll need:
+
+```{r, echo=FALSE, results='asis'}
+files1<-data.frame()
+files1<-rbind(files1,data.frame(language="en_US",twitter=4041,blogs=1876,news=3496))
+files1<-rbind(files1,data.frame(language="ru_RU",twitter=18508,blogs=17489,news=16860))
+files1<-rbind(files1,data.frame(language="fi_FI",twitter=25092,blogs=42404,news=41674))
+files1<-rbind(files1,data.frame(language="de_DE",twitter=6771,blogs=3238,news=5773))
+knitr::kable(files1)
+```
+
 ## Next steps ##
