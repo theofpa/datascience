@@ -211,3 +211,17 @@ knitr::kable(files1)
 ```
 
 ## Next steps ##
+
+As explained, the TDM is the data type which NLP uses to store the indexing of a language corpus. That index, is being used as we've seen in the example, to make a prediction of the next word following a given phrase.
+
+The calculation time for a full corpus to be indexed is huge, not acceptable for repeating the indexing process and try multiple algorithms.
+
+There are two workarounds to solve this problem:
+
+* To scale out our computation element, by utilizing a solr/elasticsearch cluster which natively support ngrams tokenization or
+* To keep using the sample of the corpus instead of the entire corpus
+
+notes for later:
+
+* Use [stemming](http://en.wikipedia.org/wiki/Stemming) to reduce the TDM size by cutting the possible variations of verbs (ex. grammatical tense suffix-stripping) or nouns (plural suffix).
+* Tag tokens by nouns, verbs, etc by using [Part-of-speech tagging](http://en.wikipedia.org/wiki/Part-of-speech_tagging). Build a predictive model using [Markov chains](http://en.wikipedia.org/wiki/Markov_chain), evaluate other models as well.
