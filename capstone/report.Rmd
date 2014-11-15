@@ -1,7 +1,7 @@
 ---
 title: "Capstone report"
-author: "Theofilos Papapanagiotou"
-date: "14 Nov 2014"
+author: "Theofilos Papapanagiotou<br/>https://github.com/theofpa"
+date: "15 November 2014"
 output: html_document
 ---
 
@@ -65,7 +65,6 @@ Although usually the stop-words are removed from a dataset, it has not been foll
 
 Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.
 
-
 ###Tokenization###
 
 Multiple functions provide tokenization for R.
@@ -75,7 +74,6 @@ Multiple functions provide tokenization for R.
 * NGramTokenizer() splits a string to n-grams, so we will have not only unigrams (words) like the two tokenizers above can give, but also bigrams, trigrams, etc (phrases of two/three words).
 
 By using the NGramTokenizer method, we calculate the unigrams/bigrams/trigrams for our english corpus, which will be used for our prediction model.
-
 
 ```{r,echo=FALSE,message=F, warning=F}
 library(tm)
@@ -138,6 +136,8 @@ qua<-rowSums(as.matrix(qtdm))
 tail(sort(rowSums(as.matrix(qtdm))))
 ```
 
+This matrix can be replaced by an Elasticsearch database, which also supports natively ngrams tokenization, and offer the scalability that we cannot reach using a single compute device.
+
 ### Next word prediction exercise ###
 
 In the provided exercises, the frequency of the quadrigrams or trigrams of the end of a given phrase has been evaluated, to select the best answer:
@@ -166,6 +166,7 @@ This was done by using a google list of swearing words which is available throug
 ###Distribution of word frequencies###
 
 By analysing the TDM further, we observe that the distribution of the unigrams (words) is inversely proportional to its rank in the frequency matrix. This is also known as [Zipf's Law](http://en.wikipedia.org/wiki/Zipf's_law) and its seen in all languages and media type.
+
 
 ```{r, fig.width=15, fig.height=15, echo=FALSE,message=F, warning=F}
 par(mfrow=c(4,3))
@@ -234,3 +235,4 @@ This will allow us to use a full quadrigram index as the first option to match t
 * Use [stemming](http://en.wikipedia.org/wiki/Stemming) to reduce the TDM size by cutting the possible variations of verbs (ex. grammatical tense suffix-stripping) or nouns (plural suffix).
 * Tag tokens by nouns, verbs, etc by using [Part-of-speech tagging](http://en.wikipedia.org/wiki/Part-of-speech_tagging). Build a predictive model using [Markov chains](http://en.wikipedia.org/wiki/Markov_chain), evaluate other models as well.
 * Estimate the probability of the next word for the prediction, by using the statistical smoothing technique of [Good–Turing frequency estimation](http://en.wikipedia.org/wiki/Good%E2%80%93Turing_frequency_estimation). Assess [Katz's back-off model](http://en.wikipedia.org/wiki/Katz's_back-off_model).
+
