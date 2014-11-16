@@ -1,11 +1,13 @@
 ---
 title: "Capstone report"
 author: "Theofilos Papapanagiotou<br/>https://github.com/theofpa"
-date: "15 November 2014"
+date: "16 November 2014"
 output: html_document
 ---
 
 The progress of the student that explores four languages corpus using Natural Language Processing (NLP) is reported below. The data are loaded, cleaned and an exploratory statistical analysis is applied. For some calculations sampling helps to have a faster result. A technical report including the reproducible code can be obtained from [github](https://github.com/theofpa/datasciencecoursera/blob/master/capstone/report.pdf).
+
+We observe the frequency of appearence of words and two/three word phrases, called ngrams. The most frequent ngrams of the english corpus are visualized. The main observation at this point is that in english, 2000-3000 words are enough to cover the 90% of the corpus. This will allow us to use a smaller set of words for our ngrams matrix, to improve the speed of the prediction.
 
 ##Data statistics and methodology##
 
