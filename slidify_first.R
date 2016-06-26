@@ -1,1 +1,0 @@
-author("first_deck")
