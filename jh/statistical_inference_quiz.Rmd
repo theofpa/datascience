@@ -1,0 +1,222 @@
+Statistical Inference
+========================================================
+
+Quiz 3
+======
+
+Question 1
+==========
+When at the free-throw line for two shots, a basketball player makes at least one free throw 90% of the time. 80% of the time, the player makes the first shot, 80% of the time the player makes the second shot and 70% of the time she makes both shots. What is the conditional probability that the player makes the second shot given that she missed the first? Express your answer as a percentage to the nearest percentage point.
+
+```{r}
+
+```
+
+Question 2
+==========
+A web site (www.medicine.ox.ac.uk/bandolier/band64/b64-7.html) for home pregnancy tests cites the following: “When the subjects using the test were women who collected and tested their own samples, the overall sensitivity was 75%. Specificity was also low, in the range 52% to 75%.” Assume the lower value for the specificity. Suppose a subject has a positive test and that 30% of women taking pregnancy tests are actually pregnant. What number is closest to the probability of pregnancy given the positive test? Express your answer to the nearest percentage point.
+
+```{r}
+round((0.75*0.3)/(  (0.75*0.3) +  ((1-0.52)*(1-0.3))  )*100)
+```
+
+Question 3
+==========
+Suppose that diastolic blood pressures (DBPs) for men aged 35-44 are normally distributed with a mean of 80 (mm Hg) and a standard deviation of 10. What is the probability that a random 35-44 year old has a DBP less than 70? Express your answer as a percentage to the nearest percentage point.
+
+Let X be the number of hits per day. We want P(X≤70) given that X is N(80,10^2).
+
+```{r}
+round((pnorm(70,mean=80,sd=10))*100)
+```
+
+Question 4
+==========
+Brain volume for adult women is normally distributed with a mean of about 1,100 cc for women with a standard deviation of 75 cc. About what brain volume represents the 95th percentile? Express your answer to the nearest cc.
+
+http://www.wolframalpha.com/input/?i=standard+normal+of+95%25
+
+x0=μ+1.64*σ
+
+```{r}
+1100+(1.64*75)
+```
+
+or
+
+```{r}
+round(qnorm(0.95, mean=1100, sd=75))
+```
+
+Question 5
+==========
+Refer to the previous question. Brain volume for adult women is about 1,100 cc for women with a standard deviation of 75 cc. Consider the sample mean of 100 random adult women from this population. Around what is the 95th percentile of the distribution of that sample mean? Express your answer to the nearest cc.
+
+```{r}
+mean=1100
+n=100
+SD=75
+SE=SD/sqrt(n)
+round(mean+(1.65*SE))
+```
+
+or
+
+Question 6
+==========
+You flip a fair coin 5 times, what's the probability of getting 4 or 5 heads? Express your answer as a percentage to the nearest percentage point.
+
+```{r}
+P4=choose(5,4) * .5^4 * .5^1
+P5=choose(5,5) * .5^5 * .5^0
+P4or5=P4+P5
+round(P4or5*100)
+```
+
+Question 7
+==========
+The respiratory disturbance index (RDI), a measure of sleep disturbance, for a specific population has a mean of 15 (sleep events per hour) and a standard deviation of 10. They are not normally distributed. Give your best estimate of the probability that a sample mean RDI of 100 people is between 14 and 16 events per hour? Express your answer as a percentage point to the nearest percentage.
+
+```{r}
+
+```
+
+Question 8
+==========
+Consider a standard uniform density. The mean for this density is .5 and the variance is 1 / 12. You sample 1,000 observations from this distribution and take the sample mean, what value would you expect it to be near? Give your answer to at least one decimal place.
+
+
+```{r}
+mean(rnorm(10000000 ,mean = 0.5, sd = sqrt(1 / 12)))
+```
+
+Question 9
+==========
+Consider a standard uniform density. The mean for this density is .5 and the variance is 1 / 12. You sample 1,000 sample means where each sample mean is comprised of 100 observations. You take the standard deviation of the 1,000 sample means. About what number would you expect it to be? Give your answer to at least 3 decimal places.
+
+```{r}
+round(sqrt(1/12)/sqrt(100),3)
+```
+
+Question 10
+===========
+The number of people showing up at a bus stop is assumed to be Poisson with a mean of 5 people per hour. You watch the bus stop for 3 hours. What's the probability of viewing 10 or fewer people? Express your answer to at least two decimal places
+
+```{r}
+round(ppois(10, lambda = 5 * 3),2)
+```
+
+Question 11
+===========
+You place 9 balls into a bag labeled 1 to 9 and take three out. How many different combinations of 3 balls (disregarding order) can you get? Express your answer as a whole number.
+
+```{r}
+ncol(combn(1:9,3))
+```
+
+Quiz 4
+======
+
+Question 1
+==========
+In a random sample of 100 patients at a clinic, you would like to test whether the mean RDI is x or more using a one sided 5% type 1 error rate. The sample mean RDI had a mean of 12 and a standard deviation of 4. What is the largest value of x (H0:μ=x versus Ha:μ>x) would you reject for? Give at least one decimal place in your answer.
+
+```{r}
+# 1. Test statistic = (xbar - x)/s
+# xbar is given as 12, and s is given at 4 (no need to divide by sqrt(100)) as the sd of the sample is given directly
+# 2. xmax will then be xbar - Z*s, where Z is set for 95% one-sided
+
+# Xn+/-z(1-alpha/2)*sigma/sqrt(n)
+
+X-z*0.4>12
+X>12-0.4z
+X=12-0.658
+11.342
+
+```
+
+Question 2
+==========
+A pharmaceutical company is interested in testing a potential blood pressure lowering medication. Their first examination considers only subjects that received the medication at baseline then two weeks later. The data are as follows (SBP in mmHg)
+Consider testing the hypothesis that there was a mean reduction in blood pressure? Give the P-value for the associated two sided test. Give at least 3 decimal places in your answer and express your P-value as a proportion and not a percentage.
+
+```{r}
+a <- c(140, 138, 150, 148, 135)
+b <- c(132, 135, 151, 146, 130)
+t.test(a, b, alternative = "two.sided", paired = T)
+```
+
+Question 4
+==========
+Researchers conducted a blind taste test of Coke versus Pepsi. Each of four people was asked which of two blinded drinks given in random order that they preferred. The data was such that 3 of the 4 people chose Coke. Assuming that this sample is representative, report a P-value for a test of the hypothesis that Coke is preferred to Pepsi using a one sided exact test. Give the answer as either a proportion to two decimal places or a percentage to the nearest percentage point.
+
+```{r}
+round(pbinom(2,size=4,prob=0.5,lower.tail=FALSE),2)
+pbinom (3,size=4,prob = 0.5)
+```
+
+Question 6
+==========
+Suppose that 18 obese subjects were randomized, 9 each, to a new diet pill and a placebo. Subjects’ body mass indices (BMIs) were measured at a baseline and again after having received the treatment or placebo for four weeks. The average difference from follow-up to the baseline (followup - baseline) was −3 kg/m2 for the treated group and 1 kg/m2 for the placebo group. The corresponding standard deviations of the differences was 1.5 kg/m2 for the treatment group and 1.8 kg/m2 for the placebo group. Does the change in BMI over the two year period appear to differ between the treated and placebo groups? Assuming normality of the underlying data and a common population variance, give a pvalue for a two sided t test.
+
+```{r}
+n1 <- n2 <- 9
+x1 <- -3  ##treated
+x2 <- 1  ##placebo
+s1 <- 1.5  ##treated
+s2 <- 1.8  ##placebo
+spsq <- ( (n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2)
+t=(x1-x2)/(spsq*sqrt(1/n1 + 1/n2))
+2*pt(t,n1+n2-2)
+```
+
+Question 7
+=========
+Brain volumes for
+9 men
+yielded a 90% confidence interval
+of 1,077 cc to 1,123 cc.
+Would you reject in a two sided 5% hypothesis test of Ho:μ=1,078
+
+```{r}
+# 90% C.I. [1077,1023]
+# symmetric to 1000
+# sample size n=9
+# t distribution
+
+```
+
+Question 9
+==========
+
+```{r}
+(qnorm(.95) + qnorm(.9))^2 * .04^2 / .01^2
+round( (qnorm(0.95) + qnorm(0.90))^2 * 0.04^2 / (0.01^2) )
+```
+
+Question 10
+===========
+As you increase the type one error rate, α, what happens to power?
+
+"Power goes up as α gets larger (power pdf, page 9/12)
+
+
+Question 11
+===========
+The Daily Planet ran a recent story about Kryptonite poisoning in the water supply after a recent event in Metropolis. Their usual field reporter, Clark Kent, called in sick and so Lois Lane reported the story. Researchers sampled 288 individuals and found mean blood Kryptonite levels of 44, both measured in Lex Luthors per milliliter (LL/ml). They compared this to 288 sampled individuals from Gotham city who had an average level of 42.04. Report the Pvalue for a two sided Z test of the relevant hypothesis. Assume that the standard deviation is 12 for both groups.Express your answer as either a percentage to the nearest percentage point or as a proportion to two decimal places.
+
+```{r}
+smm=sqrt(12^2/288 + 12^2/288)
+12^2/288
+
+x=44
+y=42.04
+sx=12
+sy=12
+n1=288
+n2=288
+
+SDpooled <- sqrt( ((n1 - 1) * sx^2 + (n2-1) * sy^2) / (n1 + n2 -2))
+SE_est= sqrt(SDpooled^2/n1 + SDpooled^2/n2)
+2*pnorm((44-42.04),lower.tail=F)
+```

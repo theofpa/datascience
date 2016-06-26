@@ -1,0 +1,240 @@
+---
+title: "Capstone report"
+author: "Theofilos Papapanagiotou<br/>https://github.com/theofpa"
+date: "16 November 2014"
+output: html_document
+---
+
+The progress of the student that explores four languages corpus using Natural Language Processing (NLP) is reported below. The data are loaded, cleaned and an exploratory statistical analysis is applied. For some calculations sampling helps to have a faster result. A technical report including the reproducible code can be obtained from [github](https://github.com/theofpa/datasciencecoursera/blob/master/capstone/report.pdf).
+
+We observe the frequency of appearence of words and two/three word phrases, called ngrams. The most frequent ngrams of the english corpus are visualized. The main observation at this point is that in english, 2000-3000 words are enough to cover the 90% of the corpus. This will allow us to use a smaller set of words for our ngrams matrix, to improve the speed of the prediction.
+
+##Data statistics and methodology##
+
+The dataset is obtained from Amazon S3 url provided by the instructions, mirrored from the website http://www.corpora.heliohost.org which has the original source of the corpus, maintained by Hans Christensen.
+
+The dataset contains news, blogs and tweets in four different languages, English, German, Russian and Finish.
+
+```{r, echo=FALSE, results='asis'}
+files<-data.frame()
+files<-rbind(files,data.frame(dataset="de_DE.blogs.txt", words=prettyNum(12653185,big.mark=",",scientific=F), characters=prettyNum(85459666,big.mark=",",scientific=F), lines=prettyNum(371440,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="de_DE.news.txt", words=prettyNum(13219388,big.mark=",",scientific=F), characters=prettyNum(95591959,big.mark=",",scientific=F), lines=prettyNum(244743,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="de_DE.twitter.txt", words=prettyNum(11803735,big.mark=",",scientific=F), characters=prettyNum(75578341,big.mark=",",scientific=F), lines=prettyNum(947774,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="en_US.blogs.txt", words=prettyNum(37334690,big.mark=",",scientific=F), characters=prettyNum(210160014,big.mark=",",scientific=F), lines=prettyNum(899288,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="en_US.news.txt", words=prettyNum(34372720,big.mark=",",scientific=F), characters=prettyNum(205811889,big.mark=",",scientific=F), lines=prettyNum(1010242,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="en_US.twitter.txt", words=prettyNum(30374206,big.mark=",",scientific=F), characters=prettyNum(167105338,big.mark=",",scientific=F), lines=prettyNum(2360148,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="fi_FI.blogs.txt", words=prettyNum(12732013,big.mark=",",scientific=F), characters=prettyNum(108503595,big.mark=",",scientific=F), lines=prettyNum(439785,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="fi_FI.news.txt", words=prettyNum(10446725,big.mark=",",scientific=F), characters=prettyNum(94234350,big.mark=",",scientific=F), lines=prettyNum(485758,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="fi_FI.twitter.txt", words=prettyNum(3153003,big.mark=",",scientific=F), characters=prettyNum(25331142,big.mark=",",scientific=F), lines=prettyNum(285214,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="ru_RU.blogs.txt", words=prettyNum(9691167,big.mark=",",scientific=F), characters=prettyNum(116855835,big.mark=",",scientific=F), lines=prettyNum(337100,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="ru_RU.news.txt", words=prettyNum(9416099,big.mark=",",scientific=F), characters=prettyNum(118996424,big.mark=",",scientific=F), lines=prettyNum(196360,big.mark=",",scientific=F)))
+files<-rbind(files,data.frame(dataset="ru_RU.twitter.txt", words=prettyNum(9542485,big.mark=",",scientific=F), characters=prettyNum(105182346,big.mark=",",scientific=F), lines=prettyNum(881414,big.mark=",",scientific=F)))
+knitr::kable(files)
+```
+
+Apart from the word count statistics, we can also extract other useful information, for example the english has the following statistics:
+
+* Twitter: Small sentence(s), maximum number of characters observed is 213.
+* Blogs: Paragraphs. Multiple sentences per blog. Largest sentence has 40835 characters.
+* News: Paragraphs. Multiple sentences. Largest sentence has 11384 characters.
+
+The NLP pipeline involves the steps shown below, which this report partially follows.
+
+* End of sentence detection, cleaning.
+* Tokenization. In the four languages, tokens can be words or phrases, splitted by space. In the languages that use pictograms, there is no space to seperate the tokens in sentences.
+* Profanity filtering.
+* Part-of-speech tagging. Tag tokens by nouns, verbs, etc.
+* Chunking. Grammar based analysis of the tagged tokens, not statistical analysis.
+* Extraction
+
+##Data Exploration##
+
+###Acquisition, cleaning, sampling###
+
+The load of the data in R has been done in the Corpus data structure, provided by the text mining framework library, tm. That loads the corpus in to the memory.
+
+Data frame is not a good data type to load the text, because it is prone to dimentionality problems. Corpus is using lists.
+
+The cleaning of the datasets has been done as follows:
+
+* Multi-sentenses paragraphs (blog posts, news articles) have been broken to seperate entries in our dataset.
+* All capital leters have been transformed to their equivalent lower, (ex. "This" has been transformed to "this") so our algorithm will summarize their apperence in one key.
+* All numbers have been removed since it is not useful for the prediction, and will keep our dataset small.
+* Punctuation has been removed, to have the words counted as one key in our algorithm (ex. "this," will be counted as "this")
+* Whitespaces have been stripped (ex " this " will be counted as "this")
+
+Although usually the stop-words are removed from a dataset, it has not been followed because we are looking for a predictive model on text, and we don't want to miss these words.
+
+Instead of importing the whole files in our dataset via the Corpus function, a sample of the data have been used. 100.000 lines per media type (twitter, blogs, news) is enough to safely conclude on the statistics of the english language.
+
+###Tokenization###
+
+Multiple functions provide tokenization for R.
+
+* scan_tokenizer() splits the text of the corpus to a character vector, by using the blankspace as the delimiter. Anything between spaces is considered a word.
+* MC_tokenizer() splits the text of the corpus to a character vector, and ignores the punctuation, parenthesis, numbers, etc.
+* NGramTokenizer() splits a string to n-grams, so we will have not only unigrams (words) like the two tokenizers above can give, but also bigrams, trigrams, etc (phrases of two/three words).
+
+By using the NGramTokenizer method, we calculate the unigrams/bigrams/trigrams for our english corpus, which will be used for our prediction model.
+
+```{r,echo=FALSE,message=F, warning=F}
+library(tm)
+library(RWeka)
+library(ggplot2)
+setwd("~/Development/datasciencecoursera/capstone")
+docs<-Corpus(DirSource(file.path(".","dataset", "sample")))
+
+
+docs <- tm_map(docs, content_transformer(tolower))
+docs <- tm_map(docs, removeNumbers)
+docs <- tm_map(docs, removePunctuation)
+docs <- tm_map(docs, stripWhitespace)
+```
+```{r}
+par(mfrow=c(1,4))
+
+ngram <- 1
+options(mc.cores=1)
+UnigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+utdm <- TermDocumentMatrix(docs, control = list(tokenize = UnigramTokenizer))
+uni<-rowSums(as.matrix(utdm))
+
+ngram <- 2
+options(mc.cores=1)
+BigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+btdm <- TermDocumentMatrix(docs, control = list(tokenize = BigramTokenizer))
+bi<-rowSums(as.matrix(btdm))
+
+ngram <- 3
+options(mc.cores=1)
+TrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+ttdm <- TermDocumentMatrix(docs, control = list(tokenize = TrigramTokenizer))
+tri<-rowSums(as.matrix(ttdm))
+
+ngram <- 4
+options(mc.cores=1)
+QuadrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=ngram,max=ngram))
+qtdm <- TermDocumentMatrix(docs, control = list(tokenize = QuadrigramTokenizer))
+qua<-rowSums(as.matrix(qtdm))
+
+barplot(tail(sort(uni),10), las = 2, main = "Top 10 Unigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(bi),10), las = 2, main = "Top 10 Bigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(tri),10), las = 2, main = "Top 10 Trigrams",cex.main = 1,horiz=TRUE)
+barplot(tail(sort(qua),10), las = 2, main = "Top 10 Quadrigrams",cex.main = 1,horiz=TRUE)
+```
+
+The tokenization of the corpus in ngrams, results in a matrix of terms and their appearence count.
+
+This matrix is called **Term Document Matrix (TDM)** and it's our main data type which we are going to use for the predictions.
+
+The following example shows how the TDM is built, and what does the content of it look like.
+
+```{r,eval=FALSE}
+QuadrigramTokenizer <- function(x) NGramTokenizer(x,Weka_control(min=4,max=4))
+qtdm <- TermDocumentMatrix(docs, control = list(tokenize = QuadrigramTokenizer))
+qua<-rowSums(as.matrix(qtdm))
+```
+```{r}
+tail(sort(rowSums(as.matrix(qtdm))))
+```
+
+This matrix can be replaced by an Elasticsearch database, which also supports natively ngrams tokenization, and offer the scalability that we cannot reach using a single compute device.
+
+### Next word prediction exercise ###
+
+In the provided exercises, the frequency of the quadrigrams or trigrams of the end of a given phrase has been evaluated, to select the best answer:
+
+```{r}
+quad<-data.frame(sort(rowSums(as.matrix(qtdm)),decreasing=TRUE))
+quad['would mean the world',]
+quad['would mean the most',]
+quad['would mean the universe',]
+quad['would mean the best',]
+```
+
+In the example above, we observe that **would mean the world** has the most references, the biggest probability that this is the next word.
+
+In a similar way, we expect to use the ngrams to predict the next word in a phrase, by matching the phrases which have the biggest probability of appearence.
+
+###Profanity Filtering###
+
+The sentenses that contain a swear word have been completely removed because:
+
+* The removal of only a swear word results in a sentence which doesn't help the prediction
+* The list of entries in the corpus which include swear words is relatively small
+
+This was done by using a google list of swearing words which is available through the dwyl.com website. @jamiew created a list of the words in https://gist.github.com/jamiew/1112488.
+
+###Distribution of word frequencies###
+
+By analysing the TDM further, we observe that the distribution of the unigrams (words) is inversely proportional to its rank in the frequency matrix. This is also known as [Zipf's Law](http://en.wikipedia.org/wiki/Zipf's_law) and its seen in all languages and media type.
+
+
+```{r, fig.width=15, fig.height=15, echo=FALSE,message=F, warning=F}
+par(mfrow=c(4,3))
+par(oma=c(0,0,5,0))
+par(ps = 12, cex = 1, cex.main = 1.5)
+for (lang in c('en_US','de_DE','fi_FI','ru_RU'))
+{
+        for (media in c('blogs','news','twitter'))
+        {
+                con <- file(paste("./dataset/",lang,"/",lang,".",media,".txt",sep=''), "r")
+                sample <-readLines(con, 2000)
+                close(con)
+                sdocs <- VCorpus(VectorSource(sample),  readerControl = list(language=lang))
+                dtm <- DocumentTermMatrix(sdocs)
+                Zipf_plot(dtm)
+                mtext(paste(lang,media))
+        }
+        
+}
+title("Word frequency distribution per corpus language and media type, following Zipf's Law", outer=TRUE)
+```
+
+If we sort the TDM by frequency of word appearence, we'll need the following amount of words to cover **half** of the word instances per language/media type:
+
+```{r, echo=FALSE, results='asis'}
+files1<-data.frame()
+files1<-rbind(files1,data.frame(language="en_US",twitter=195,blogs=116,news=247))
+files1<-rbind(files1,data.frame(language="ru_RU",twitter=576,blogs=594,news=711))
+files1<-rbind(files1,data.frame(language="fi_FI",twitter=1661,blogs=1665,news=2711))
+files1<-rbind(files1,data.frame(language="de_DE",twitter=151,blogs=88,news=143))
+knitr::kable(files1)
+```
+
+To cover the **90%** of the word instances we'll need:
+
+```{r, echo=FALSE, results='asis'}
+files1<-data.frame()
+files1<-rbind(files1,data.frame(language="en_US",twitter=4041,blogs=1876,news=3496))
+files1<-rbind(files1,data.frame(language="ru_RU",twitter=18508,blogs=17489,news=16860))
+files1<-rbind(files1,data.frame(language="fi_FI",twitter=25092,blogs=42404,news=41674))
+files1<-rbind(files1,data.frame(language="de_DE",twitter=6771,blogs=3238,news=5773))
+knitr::kable(files1)
+```
+
+## Next steps ##
+
+As explained, the TDM is the data type which NLP uses to store the indexing of a language corpus. That index, is being used as we've seen in the example, to make a prediction of the next word following a given phrase.
+
+Two main problems arrise and will be part of the next weeks studies/work.
+
+### Data engineering problem ###
+
+The calculation time for a full corpus to be indexed is huge, not acceptable for repeating the indexing process and try multiple algorithms.
+
+There are two workarounds to solve this problem:
+
+* To scale out our computation element, by utilizing a solr/elasticsearch cluster which natively support ngrams tokenization or
+* To keep using the sample of the corpus instead of the entire corpus
+
+[Elasticsearch indexing](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/analysis-ngram-tokenizer.html) seems to be the best option, given the fact that the outcome is expected to work through a web API on a web interface instead of a mobile device like Swiftkey does.
+
+This will allow us to use a full quadrigram index as the first option to match the user input before the trigram index, as there will be no memory limitations.
+
+### NLP/data scientist problems ###
+
+* Use [stemming](http://en.wikipedia.org/wiki/Stemming) to reduce the TDM size by cutting the possible variations of verbs (ex. grammatical tense suffix-stripping) or nouns (plural suffix).
+* Tag tokens by nouns, verbs, etc by using [Part-of-speech tagging](http://en.wikipedia.org/wiki/Part-of-speech_tagging). Build a predictive model using [Markov chains](http://en.wikipedia.org/wiki/Markov_chain), evaluate other models as well.
+* Estimate the probability of the next word for the prediction, by using the statistical smoothing technique of [Good–Turing frequency estimation](http://en.wikipedia.org/wiki/Good%E2%80%93Turing_frequency_estimation). Assess [Katz's back-off model](http://en.wikipedia.org/wiki/Katz's_back-off_model).
+
